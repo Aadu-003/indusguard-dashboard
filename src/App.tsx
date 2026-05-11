@@ -531,10 +531,16 @@ const AnalyticsScreen = () => {
                 { time: '2024-05-24 14:31:55', id: 'EV_7821_X', metric: 'RPM_STABILITY', status: 'WARNING', val: '2,580 RPM' },
                 { time: '2024-05-24 14:31:40', id: 'EV_7820_X', metric: 'LOAD_V_CURR', status: 'NOMINAL', val: '44.1 A' },
               ].map((row, i) => (
-                <tr key={i} className="hover:bg-surface-dim transition-all group">
-                  <td className="px-8 py-6 text-secondary opacity-60 font-medium">{row.time}</td>
-                  <td className="px-8 py-6 text-primary italic font-serif text-base">{row.id}</td>
-                  <td className="px-8 py-6 tracking-tight">{row.metric}</td>
+                <tr key={i} className="hover:bg-surface-dim transition-all group text-black">
+  <td className="px-8 py-6 text-black font-medium">{row.time}</td>
+  
+  <td className="px-8 py-6 text-black italic font-serif text-base">
+    {row.id}
+  </td>
+
+  <td className="px-8 py-6 tracking-tight text-black">
+    {row.metric}
+  </td>
                   <td className="px-8 py-6">
                     <span className={cn(
                       "px-3 py-1 border text-[9px] font-bold uppercase tracking-wider",
