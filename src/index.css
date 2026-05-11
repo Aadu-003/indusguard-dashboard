@@ -1,84 +1,177 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 @import "tailwindcss";
 
-@theme {
-  --color-surface: #131315;
-  --color-surface-dim: #131315;
-  --color-surface-bright: #39393b;
-  --color-surface-container-lowest: #0e0e10;
-  --color-surface-container-low: #1c1b1d;
-  --color-surface-container: #201f21;
-  --color-surface-container-high: #2a2a2c;
-  --color-surface-container-highest: #353437;
-  
-  --color-primary: #e1fdff;
-  --color-primary-container: #00f2ff;
-  --color-on-primary-container: #006a71;
-  
-  --color-secondary: #ddb8ff;
-  --color-secondary-container: #7c03d3;
-  --color-on-secondary-container: #dfbcff;
-  
-  --color-tertiary: #e9fbff;
-  --color-tertiary-container: #83eaff;
-  --color-on-tertiary-container: #006a78;
-  
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
-  --color-on-error-container: #ffdad6;
-  
-  --color-on-surface: #e5e1e4;
-  --color-on-surface-variant: #b9cacb;
-  --color-outline: #849495;
-  --color-outline-variant: #3a494b;
+/* =========================
+   INDUSTRIAL DARK THEME
+========================= */
 
+@theme {
+
+  /* Background System */
+  --color-surface: #0b0f14;
+  --color-surface-dim: #10151c;
+  --color-surface-bright: #1a212b;
+
+  --color-surface-container-lowest: #05070a;
+  --color-surface-container-low: #11161d;
+  --color-surface-container: #161d26;
+  --color-surface-container-high: #1d2631;
+  --color-surface-container-highest: #283241;
+
+  /* Primary Industrial Cyan */
+  --color-primary: #e6faff;
+  --color-primary-container: #00d9ff;
+  --color-on-primary-container: #001e24;
+
+  /* Secondary Neon Purple */
+  --color-secondary: #d7b8ff;
+  --color-secondary-container: #8a2cff;
+  --color-on-secondary-container: #f3e6ff;
+
+  /* Accent */
+  --color-tertiary: #a6f6ff;
+  --color-tertiary-container: #00bcd4;
+  --color-on-tertiary-container: #001f26;
+
+  /* Error */
+  --color-error: #ff7b7b;
+  --color-error-container: #5a0000;
+  --color-on-error-container: #ffe5e5;
+
+  /* Text */
+  --color-on-surface: #f5f7fa;
+  --color-on-surface-variant: #b8c4d0;
+
+  /* Borders */
+  --color-outline: #334155;
+  --color-outline-variant: #1e293b;
+
+  /* Fonts */
   --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
+/* =========================
+   BASE
+========================= */
+
 @layer base {
+
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     @apply bg-surface text-on-surface font-sans;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  input,
+  textarea {
+    outline: none;
   }
 }
 
+/* =========================
+   COMPONENTS
+========================= */
+
 @layer components {
+
+  /* Glass Panels */
   .glass-panel {
-    @apply bg-surface-container-low/60 backdrop-blur-xl border border-white/10;
+    @apply bg-surface-container/70 backdrop-blur-xl border border-white/10;
   }
-  
-  .scan-line {
-    background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.02) 50%);
-    background-size: 100% 4px;
-    pointer-events: none;
-  }
-  
+
+  /* Neon Glow Effects */
   .glow-blue {
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
+    box-shadow:
+      0 0 10px rgba(0, 217, 255, 0.15),
+      0 0 25px rgba(0, 217, 255, 0.10);
   }
-  
+
   .glow-cyan {
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    box-shadow:
+      0 0 15px rgba(0, 217, 255, 0.25),
+      0 0 35px rgba(0, 217, 255, 0.15);
   }
 
   .glow-purple {
-    box-shadow: 0 0 15px rgba(221, 184, 255, 0.3);
+    box-shadow:
+      0 0 15px rgba(138, 44, 255, 0.25),
+      0 0 35px rgba(138, 44, 255, 0.15);
   }
 
   .glow-red {
-    box-shadow: 0 0 15px rgba(255, 180, 171, 0.3);
+    box-shadow:
+      0 0 15px rgba(255, 80, 80, 0.25),
+      0 0 35px rgba(255, 80, 80, 0.15);
+  }
+
+  /* Scanline Effect */
+  .scan-line {
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(255,255,255,0.02) 50%
+      );
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+
+  /* Tags */
+  .tag-pill {
+    @apply text-xs uppercase tracking-[0.2em] font-mono;
+  }
+
+  /* CTA Button */
+  .cta-button {
+    @apply px-5 py-3 border border-outline bg-surface-container text-on-surface transition-all duration-300 hover:bg-primary hover:text-black;
   }
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* =========================
+   SCROLLBAR
+========================= */
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+/* =========================
+   RECHARTS TOOLTIP FIX
+========================= */
+
+.recharts-tooltip-wrapper {
+  color: black !important;
+}
+
+/* =========================
+   TABLE FIXES
+========================= */
+
+table {
+  color: white;
+}
+
+td, th {
+  color: inherit;
+}
