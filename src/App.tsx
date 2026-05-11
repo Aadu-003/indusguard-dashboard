@@ -515,7 +515,7 @@ const AnalyticsScreen = () => {
           </button>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left font-mono text-[10px]">
+          <table className="w-full text-left font-mono text-sm text-black bg-white">
             <thead>
               <tr className="text-secondary border-b border-outline bg-surface-container/30 uppercase tracking-widest font-bold">
                 <th className="px-8 py-5">Timestamp</th>
@@ -525,29 +525,29 @@ const AnalyticsScreen = () => {
                 <th className="px-8 py-5 text-right">Magnitude</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-outline/30">
+            <tbody className="divide-y divide-gray-300 text-black">
               {[
                 { time: '2024-05-24 14:32:01', id: 'EV_7822_X', metric: 'THERMAL_THRESHOLD', status: 'NOMINAL', val: '71.2°C' },
                 { time: '2024-05-24 14:31:55', id: 'EV_7821_X', metric: 'RPM_STABILITY', status: 'WARNING', val: '2,580 RPM' },
                 { time: '2024-05-24 14:31:40', id: 'EV_7820_X', metric: 'LOAD_V_CURR', status: 'NOMINAL', val: '44.1 A' },
               ].map((row, i) => (
-                <tr key={i} className="hover:bg-surface-dim transition-all group text-black">
-  <td className="px-8 py-6 text-black font-medium">{row.time}</td>
+                <tr key={i} className="hover:bg-gray-100 transition-all">
+                 <td className="px-8 py-6 text-black font-medium">{row.time}</td>
   
-  <td className="px-8 py-6 text-black italic font-serif text-base">
-    {row.id}
-  </td>
+                  <td className="px-8 py-6 text-black italic font-serif text-base">
+                    {row.id}
+                  </td>
 
-  <td className="px-8 py-6 tracking-tight text-black">
-    {row.metric}
-  </td>
-                  <td className="px-8 py-6">
+                  <td className="px-8 py-6 tracking-tight text-black">
+                    {row.metric}
+                  </td>
+                  <td className="px-8 py-6 text-black">
                     <span className={cn(
                       "px-3 py-1 border text-[9px] font-bold uppercase tracking-wider",
                       row.status === 'NOMINAL' ? "border-outline text-secondary" : "border-error text-error bg-error/5"
                     )}>{row.status}</span>
                   </td>
-                  <td className="px-8 py-6 text-right text-primary font-bold text-sm tracking-tighter">{row.val}</td>
+                  <td className="px-8 py-6 text-right text-black font-bold text-sm tracking-tighter">{row.val}</td>
                 </tr>
               ))}
             </tbody>
