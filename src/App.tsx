@@ -252,18 +252,7 @@ if (rpm > 5000) {
   const [data, setData] = useState<{name: string, actual: number, predict: number}[]>([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-
-  setSensorData({
-    temperature: Number((60 + Math.random() * 40).toFixed(1)),
-    vibration: Number((Math.random() * 10).toFixed(1)),
-    rpm: Math.floor(3000 + Math.random() * 3000),
-    current: Number((10 + Math.random() * 20).toFixed(1))
-  });
-
-}, 3000);
-return () => clearInterval(interval);
-
+    
   // Firebase realtime listener
   const sensorRef = ref(database, "machineData");
 
