@@ -197,16 +197,72 @@ const MonitorScreen = ({ setScreen }: { setScreen: (s: Screen) => void }) => {
 
   // Firebase Sensor Data
   const [sensorData, setSensorData] = useState({
+    
     temperature: 64.2,
     vibration: 0.4,
     rpm: 3602,
     current: 42.8
+    
+    
   });
+  const vibration = sensorData?.vibration ?? 0;
+const temperature = sensorData?.temperature ?? 0;
+const current = sensorData?.current ?? 0;
+const rpm = sensorData?.rpm ?? 0;
+
+let machineStatus = "Healthy";
+let failureRisk = "Low";
+let predictedIssue = "None";
+let alertMessage = "All systems operating normally.";
+let healthScore = 95;
+
+if (vibration > 7) {
+  machineStatus = "Warning";
+  failureRisk = "Medium";
+  predictedIssue = "Bearing Vibration";
+  alertMessage = "⚠ High vibration detected";
+  healthScore -= 20;
+}
+
+if (temperature > 80) {
+  machineStatus = "Critical";
+  failureRisk = "High";
+  predictedIssue = "Overheating";
+  alertMessage = "🔥 Machine overheating risk";
+  healthScore -= 30;
+}
+
+if (current > 20) {
+  machineStatus = "Critical";
+  failureRisk = "High";
+  predictedIssue = "Motor Overload";
+  alertMessage = "⚡ Excess current detected";
+  healthScore -= 25;
+}
+
+if (rpm > 5000) {
+  machineStatus = "Warning";
+  failureRisk = "Medium";
+  predictedIssue = "RPM Instability";
+  alertMessage = "⚠ RPM exceeds safe limit";
+  healthScore -= 15;
+}
 
   // Graph Data
   const [data, setData] = useState<{name: string, actual: number, predict: number}[]>([]);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+
+  setSensorData({
+    temperature: Number((60 + Math.random() * 40).toFixed(1)),
+    vibration: Number((Math.random() * 10).toFixed(1)),
+    rpm: Math.floor(3000 + Math.random() * 3000),
+    current: Number((10 + Math.random() * 20).toFixed(1))
+  });
+
+}, 3000);
+return () => clearInterval(interval);
 
   // Firebase realtime listener
   const sensorRef = ref(database, "machineData");
@@ -305,8 +361,63 @@ const MonitorScreen = ({ setScreen }: { setScreen: (s: Screen) => void }) => {
           ))}
         </div>
       </div>
+      
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+
+  <GlassPanel className="p-6">
+    <h3 className="text-sm opacity-60 mb-2">
+      Machine Status
+    </h3>
+
+    <p className="text-2xl font-bold">
+      {machineStatus}
+    </p>
+  </GlassPanel>
+
+  <GlassPanel className="p-6">
+    <h3 className="text-sm opacity-60 mb-2">
+      Failure Risk
+    </h3>
+
+    <p className="text-2xl font-bold">
+      {failureRisk}
+    </p>
+  </GlassPanel>
+
+  <GlassPanel className="p-6">
+    <h3 className="text-sm opacity-60 mb-2">
+      Predicted Issue
+    </h3>
+
+    <p className="text-xl font-bold">
+      {predictedIssue}
+    </p>
+  </GlassPanel>
+
+  <GlassPanel className="p-6">
+    <h3 className="text-sm opacity-60 mb-2">
+      Health Score
+    </h3>
+
+    <p className="text-3xl font-bold">
+      {healthScore}%
+    </p>
+  </GlassPanel>
+
+</div>
+<GlassPanel className="p-6 mt-6 border border-red-500/30">
+
+  <h3 className="text-lg font-bold mb-2">
+    Smart Alert System
+  </h3>
+
+  <p>
+    {alertMessage}
+  </p>
+
+</GlassPanel>
         {/* Graph */}
         <GlassPanel className="lg:col-span-8 p-10">
           <div className="flex justify-between items-baseline mb-12 border-b border-outline pb-6">
